@@ -45,8 +45,6 @@ parser.add_argument('--prefetch', type=int, default=0, help='Pre-fetching thread
 args = parser.parse_args()
 
 state = {k: v for k, v in args._get_kwargs()}
-with open(args.save + '/params.json', 'w') as f:
-    json.dump(state, f)
 
 print(state)
 
@@ -240,6 +238,9 @@ if not os.path.isdir(args.save):
 with open(os.path.join(args.save, args.dataset + '_' + args.model +
                                   '_training_results.csv'), 'w') as f:
     f.write('epoch,time(s),train_loss,test_loss,test_error(%)\n')
+
+with open(args.save + '/params.json', 'w') as f:
+    json.dump(state, f)
 
 print('Beginning Training\n')
 
