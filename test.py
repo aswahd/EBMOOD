@@ -22,7 +22,7 @@ parser.add_argument('--test_bs', type=int, default=200)
 parser.add_argument('--num_to_avg', type=int, default=1, help='Average measures across num_to_avg runs.')
 parser.add_argument('--validate', '-v', action='store_true', help='Evaluate performance on validation distributions.')
 parser.add_argument('--use_xent', '-x', action='store_true', help='Use cross entropy scoring instead of the MSP.')
-parser.add_argument('--method_name', '-m', type=str, default='cifar10_allconv_baseline', help='Method name.')
+parser.add_argument('--method_name', '-m', type=str, default='cifar10_wrn', help='Method name.')
 # Loading details
 parser.add_argument('--layers', default=40, type=int, help='total number of layers')
 parser.add_argument('--widen-factor', default=2, type=int, help='widen factor')
@@ -102,7 +102,7 @@ def get_ood_scores(loader, in_dist=False):
 
             data = data.cuda()
 
-            output, _ = net(data)
+            output = net(data)
             smax = to_np(F.softmax(output, dim=1))
 
             if args.use_xent:

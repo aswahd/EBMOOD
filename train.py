@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import json
 import argparse
 import time
 import torch
@@ -44,6 +45,9 @@ parser.add_argument('--prefetch', type=int, default=0, help='Pre-fetching thread
 args = parser.parse_args()
 
 state = {k: v for k, v in args._get_kwargs()}
+with open(args.save + '/params.json', 'w') as f:
+    json.dump(state, f)
+
 print(state)
 
 torch.manual_seed(1)
